@@ -7,7 +7,7 @@
  * Module dependencies.
  */
 
-var bigint = require('bigint');
+var bignum = require('bignum');
 
 /**
  * Module exports.
@@ -37,7 +37,7 @@ druuid.epoch = 0;
 druuid.gen = function gen(date, epoch){
   if (!date) date = new Date();
   if (!epoch) epoch = druuid.epoch;
-  var id = bigint(date - epoch).shiftLeft(64 - 41);
+  var id = bignum(date - epoch).shiftLeft(64 - 41);
   return id.or(Math.round(Math.random() * 1e16) % Math.pow(2, 64 - 41));
 };
 
@@ -56,6 +56,6 @@ druuid.gen = function gen(date, epoch){
 
 druuid.time = function(uuid, epoch){
   if (!epoch) epoch = druuid.epoch;
-  var ms = bigint(uuid).shiftRight(64 - 41).toNumber();
+  var ms = bignum(uuid).shiftRight(64 - 41).toNumber();
   return new Date(ms + epoch);
 };
